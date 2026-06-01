@@ -1,93 +1,126 @@
-import { View,Text, Pressable, TextInput } from "react-native";
+import { View, Text, Pressable, TextInput, StyleSheet } from "react-native";
 import { useState } from "react";
-import { StyleSheet } from "react-native";
+
 const styles = StyleSheet.create({
-            container:{
-                textAlign: 'center',
-                flex:1,
-                backgroundColor: '#0a0a0F',
-                paddingHorizontal: 24,
-                justifyContent: 'center'
-            },
-            logo:{
-                fontSize: 32,
-                fontWeight: '700',
-                color: "#7C3AED",
-                textAlign: 'center',
-                marginBottom: 4
-            },
-            subtitulo:{
-                fontSize: 14,
-                color: '#8B8BA0',
-                textAlign: 'center',
-                marginBottom: 48, 
-            }
-            ,
-            text:{
-                padding: 4,
-                marginBottom: 20,
-                borderRadius: 4,
-                fontSize: 28,
-                fontFamily: 'Sans-serif',
-                fontWeight: 'bold'
-            },
-            input: {
-                paddingHorizontal: 16,
-                backgroundColor: "#13131A",
-                paddingVertical: 14,
-                color: '#F0EEFF',
-                borderWidth: 1,
-                borderColor: "#2A2A3D",
-                borderStyle: "solid",
-                borderRadius:12,
-                marginBottom: 12,
-                fontSize: 16
+    container: {
+        flex: 1,
+        backgroundColor: '#0a0a0F',
+        paddingHorizontal: 24,
+        justifyContent: 'center'
+    },
+    logo: {
+        fontSize: 32,
+        fontWeight: '700',
+        color: "#7C3AED",
+        textAlign: 'center',
+        marginBottom: 4
+    },
+    subtitulo: {
+        fontSize: 14,
+        color: '#8B8BA0',
+        textAlign: 'center',
+        marginBottom: 32,
+    },
+    input: {
+        paddingHorizontal: 16,
+        backgroundColor: "#13131A",
+        paddingVertical: 14,
+        color: '#F0EEFF',
+        borderWidth: 1,
+        borderColor: "#2A2A3D",
+        borderStyle: "solid",
+        borderRadius: 12,
+        marginBottom: 12,
+        fontSize: 16
+    },
+    submit: {
+        backgroundColor: "#7C3AED",
+        borderRadius: 12,
+        paddingVertical: 14,
+        alignItems: 'center',
+        marginTop: 8,
+        marginBottom: 12,
+    },
+    textoSubmit: {
+        color: '#F0EEFF',
+        fontSize: 16,
+        fontWeight: '700'
+    },
+    textoLogin: {
+        color: '#FFF',
+        fontSize: 16,
+        fontWeight: '700',
+        textAlign: 'center'
+    },
+    botonLogin: {
+        marginTop: 8,
+        alignItems: 'center'
+    }
+});
 
-            },
-            submit:{
-                backgroundColor: "#7C3AED",
-                borderRadius: 12,
-                paddingVertical: 14,
-                alignItems: 'center',
-                marginBottom: 12,
+function Register(props) {
+    const [usuario, setUsuario] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
-            },
-            textoSubmit: {
-                color: '#F0EEFF',
-                fontSize: 16,
-                fontWeight: '700'
-            },
-            texto2: {
-                color: '#FFF',
-                fontSize: 16,
-                fontWeight: '700'
-            }
+    function onSubmit() {
+        console.log('Usuario: ' + usuario);
+        console.log('Email: ' + email);
+        console.log('Password: ' + password);
 
+        props.navigation.navigate('Login');
+    }
 
-        })
+    return (
+        <View style={styles.container}>
+            <Text style={styles.logo}>CRATE</Text>
+            <Text style={styles.subtitulo}>Creá tu cuenta</Text>
 
- 
+            <TextInput
+                style={styles.input}
+                placeholder="Nombre de usuario"
+                placeholderTextColor="#8B8BA0"
+                value={usuario}
+                onChangeText={(text) => setUsuario(text)}
+            />
 
-function Register(props){
-const [email,setEmail] = useState("")
-const [password,setPassword] = useState("")
-const [user,setUser] = useState("")
-function onSubmit(){
-    
-        console.log("El email es: " + email + " " + password + " " + user)
+            <TextInput
+                style={styles.input}
+                placeholder="Email"
+                placeholderTextColor="#8B8BA0"
+                keyboardType="email-address"
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+            />
 
-}
-return(
+            <TextInput
+                style={styles.input}
+                placeholder="Contraseña"
+                placeholderTextColor="#8B8BA0"
+                secureTextEntry={true}
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+            />
 
-        <View style = {styles.container}>
-                <Text style={styles.logo}>
-                    CRATE - REGISTRO
-                </Text>
-            <Pressable style={styles.submit} onPress={()=> props.navigation.navigate('Login')}>
-                <Text style={styles.texto2}>Ir a login</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="Confirmar contraseña"
+                placeholderTextColor="#8B8BA0"
+                secureTextEntry={true}
+                value={confirmPassword}
+                onChangeText={(text) => setConfirmPassword(text)}
+            />
+
+            <Pressable style={styles.submit} onPress={() => onSubmit()}>
+                <Text style={styles.textoSubmit}>Registrarme</Text>
+            </Pressable>
+
+            <Pressable style={styles.botonLogin} onPress={() => props.navigation.navigate('Login')}>
+                <Text style={styles.textoLogin}>Ya tengo cuenta</Text>
             </Pressable>
         </View>
-    )
+    );
 }
 
 export default Register;
