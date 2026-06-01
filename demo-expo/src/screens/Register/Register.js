@@ -56,6 +56,12 @@ const styles = StyleSheet.create({
     botonLogin: {
         marginTop: 8,
         alignItems: 'center'
+    },
+    error:{
+        fontSize: 14,
+        fontWeight: 700,
+        color: "#e71919ff",
+        textAlign: "center"
     }
 });
 
@@ -130,11 +136,11 @@ function Register(props) {
                 value={confirmPassword}
                 onChangeText={(text) => setConfirmPassword(text)}
             />
-
+            <Text style = {styles.error}>{registerError}</Text>
+            <Text>{registerError}</Text>
             <Pressable style={styles.submit} onPress={() => onSubmit()}>
                 <Text style={styles.textoSubmit}>Registrarme</Text>
             </Pressable>
-            <Text>{registerError}</Text>
 
             <Pressable style={styles.botonLogin} onPress={() => props.navigation.navigate('Login')}>
                 <Text style={styles.textoLogin}>Ya tengo cuenta</Text>

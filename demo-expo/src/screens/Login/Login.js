@@ -60,6 +60,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
   },
+  error:{
+    fontSize: 14,
+    fontWeight: 700,
+    color: "#e71919ff",
+    textAlign: "center",
+    marginBottom: 20
+  }
 });
 
 function Login(props) {
@@ -75,6 +82,9 @@ function Login(props) {
         props.navigation.navigate('HomeMenu');
       })
       .catch(error => {
+        if (email == "" || password == ""){ setLoginError("Completá todos los campos.") ; return; }
+          if (password.length < 6) { setLoginError("La contraseña debe tener un mínimo de 6 caracteres."); return}
+          if (!email.includes("@")) {setLoginError("El email no es válido, por favor no olvides utilizar @."); return}
         setLoginError('Credenciales inválidas.')
       })
   }
@@ -99,6 +109,8 @@ function Login(props) {
         onChangeText={text => setPassword(text)}
         value={password}
       />
+
+      <Text style = {styles.error}>{loginError}</Text>
 
       <Pressable style={styles.submit} onPress={() => login(email, password)}>
         <Text style={styles.textoSubmit}>Entrar a la app</Text>
