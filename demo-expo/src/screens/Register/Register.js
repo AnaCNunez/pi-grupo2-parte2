@@ -79,6 +79,10 @@ function Register(props) {
     }
 
     function onSubmit() {
+      if (!email.includes('@')) {
+        setRegisterError('Email mal formateado');
+        return;
+      }
       if (password.length < 6) {
         setRegisterError('La contraseña debe tener al menos 6 caracteres.');
         return;
