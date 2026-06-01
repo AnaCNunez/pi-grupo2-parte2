@@ -1,5 +1,6 @@
 import { View, Text, Pressable, TextInput, StyleSheet } from "react-native";
 import { useState } from "react";
+import { auth } from "../../firebase/config";
 
 const styles = StyleSheet.create({
     container: {
@@ -63,13 +64,27 @@ function Register(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [registrado, setRegister] = useState(false);
+    const [registerError, setRegisterError] = useState("");
+
+    function register(email, pass) {
+      auth.createUserWithEmailAndPassword(email, pass)
+        .then(response => {
+          setRegister(true);
+          props.navigation.navigate('Login');
+        })
+        .catch(error => {
+          setRegisterError('Fallo en el registro.')
+        })
+    }
 
     function onSubmit() {
-        console.log('Usuario: ' + usuario);
-        console.log('Email: ' + email);
-        console.log('Password: ' + password);
+      if (password.length < 6) {
+        setRegisterError('La contraseña debe tener al menos 6 caracteres.');
+        return;
+      }
 
-        props.navigation.navigate('Login');
+      register(email, password);
     }
 
     return (
@@ -115,6 +130,7 @@ function Register(props) {
             <Pressable style={styles.submit} onPress={() => onSubmit()}>
                 <Text style={styles.textoSubmit}>Registrarme</Text>
             </Pressable>
+            <Text>{registerError}</Text>
 
             <Pressable style={styles.botonLogin} onPress={() => props.navigation.navigate('Login')}>
                 <Text style={styles.textoLogin}>Ya tengo cuenta</Text>

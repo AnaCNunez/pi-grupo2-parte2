@@ -1,6 +1,7 @@
 import { View, Text, Pressable, TextInput } from "react-native";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
+import { auth } from "../../firebase/config";
 
 const styles = StyleSheet.create({
   container: {
@@ -64,6 +65,19 @@ const styles = StyleSheet.create({
 function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [logueado, setLogin] = useState(false);
+  const [loginError, setLoginError] = useState("");
+
+  function login(email, pass) {
+    auth.signInWithEmailAndPassword(email, pass)
+      .then(response => {
+        setLogin(true);
+        props.navigation.navigate('HomeMenu');
+      })
+      .catch(error => {
+        setLoginError('Credenciales inválidas.')
+      })
+  }
 
   return (
     <View style={styles.container}>
@@ -86,9 +100,10 @@ function Login(props) {
         value={password}
       />
 
-      <Pressable style={styles.submit} onPress={() => props.navigation.navigate('HomeMenu')}>
+      <Pressable style={styles.submit} onPress={() => login(email, password)}>
         <Text style={styles.textoSubmit}>Entrar a la app</Text>
       </Pressable>
+      <Text>{loginError}</Text>
 
       <Pressable style={styles.secondary} onPress={() => props.navigation.navigate('Register')}>
         <Text style={styles.texto2}>Registrate</Text>
