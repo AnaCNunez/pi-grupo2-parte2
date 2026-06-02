@@ -75,8 +75,8 @@ function Login(props) {
   const [logueado, setLogin] = useState(false);
   const [loginError, setLoginError] = useState("");
 
-  function login(email, pass) {
-    auth.signInWithEmailAndPassword(email, pass)
+  function login() {
+    auth.signInWithEmailAndPassword(email, password)
       .then(response => {
         setLogin(true);
         props.navigation.navigate('HomeMenu');
@@ -85,7 +85,7 @@ function Login(props) {
         if (email == "" || password == ""){ setLoginError("Completá todos los campos.") ; return; }
           if (password.length < 6) { setLoginError("La contraseña debe tener un mínimo de 6 caracteres."); return}
           if (!email.includes("@")) {setLoginError("El email no es válido, por favor no olvides utilizar @."); return}
-        setLoginError('Credenciales inválidas.')
+        setLoginError('Fallo en el login.')
       })
   }
 
@@ -112,7 +112,7 @@ function Login(props) {
 
       <Text style = {styles.error}>{loginError}</Text>
 
-      <Pressable style={styles.submit} onPress={() => login(email, password)}>
+      <Pressable style={styles.submit} onPress={() => login()}>
         <Text style={styles.textoSubmit}>Entrar a la app</Text>
       </Pressable>
       <Text>{loginError}</Text>
