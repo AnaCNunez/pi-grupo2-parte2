@@ -10,9 +10,21 @@ const styles = StyleSheet.create({
   }})
 function Home(props){
     return(
-    <View style = {styles.container}>
-      <Text> HOME </Text> 
-    </View>
+    <View style={styles.container}>
+            <Text style={styles.titulo}>Home</Text>
+
+            <FlatList
+                data={posteos}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) =>
+                    <Post data={item.data} id={item.id}/>
+                }
+            />
+
+            <DynamicForm />
+
+        </View>
+
     )
 }
 export default Home;
