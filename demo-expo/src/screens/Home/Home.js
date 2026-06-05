@@ -21,8 +21,6 @@ function Home(props){
                 }
             />
 
-            <DynamicForm />
-
         </View>
 
     )
