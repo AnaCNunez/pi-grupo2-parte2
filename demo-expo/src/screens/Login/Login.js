@@ -2,6 +2,7 @@ import { View, Text, Pressable, TextInput } from "react-native";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { auth } from "../../firebase/config";
+import { useEffect } from "react";
 
 const styles = StyleSheet.create({
   container: {
@@ -69,7 +70,11 @@ const styles = StyleSheet.create({
   }
 });
 
+
+
 function Login(props) {
+
+  useEffect(()=>{auth.onAuthStateChanged(user=>console.log(user))},[])
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [logueado, setLogin] = useState(false);
