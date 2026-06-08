@@ -4,6 +4,7 @@ import Feather from '@expo/vector-icons/Feather';
 import Home from '../../screens/Home/Home';
 import User from '../../screens/User/User';
 import NuevoPost from '../../screens/NuevoPost/NuevoPost';
+import StackMenu from '../StackMenu/StackMenu';
 import { StyleSheet } from 'react-native';
 const Tab = createBottomTabNavigator()
 const styles = StyleSheet.create({
@@ -14,7 +15,7 @@ const styles = StyleSheet.create({
 function HomeMenu(props){
     return(
         <Tab.Navigator  screenOptions={{tabBarShowLabel:false}}>
-            <Tab.Screen style = {styles.tab} name='Home' component={Home} options={
+            <Tab.Screen style = {styles.tab} name='Stack' component={StackMenu} options={
                 {    headerShown:false,
                      tabBarIcon: ()=> <Feather  name="home" size={24} color="black" marginTop="15px" />
                 }
