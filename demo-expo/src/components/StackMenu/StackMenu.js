@@ -6,12 +6,10 @@ const Stack = createNativeStackNavigator()
 
 function StackMenu() {
   return (
-      <NavigationContainer>
         <Stack.Navigator>
             <Stack.Screen options = {{headerShown:false}} name="Home" component={Home}></Stack.Screen>
             <Stack.Screen options = {{headerShown:false}} name="Comment" component={Comment} ></Stack.Screen>
         </Stack.Navigator>
-      </NavigationContainer>
   );
 }
 

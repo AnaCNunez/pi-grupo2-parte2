@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Text, View, Pressable, TextInput } from "react-native";
 import { db, auth } from "../../firebase/config";
 import { StyleSheet } from "react-native";
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -53,6 +54,7 @@ function NuevoPost(props) {
     })
       .then(() => {
         setDescripcionPost("");
+        props.navigation.navigate("StackMenu")
         console.log("Post creado");
       })
       .catch(error => console.log(error));

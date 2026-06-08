@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Pressable } from "react-native";
+import { StyleSheet, View, Text, Pressable } from "react-native";
 import { db, auth } from "../../firebase/config";
 import firebase from "firebase";
 
@@ -66,12 +66,17 @@ function Post(props) {
         <View style={styles.card}>
             <Text style={styles.email}>{props.data.email}</Text>
             <Text style={styles.descripcion}>{props.data.descripcionPost}</Text>
+            <Text style={styles.likes}>🤍{props.data.likes ? props.data.likes.length : 0}</Text>
 
             <View style={styles.seccionLike}>
-                <Text style={styles.likes}>🤍{props.data.likes ? props.data.likes.length : 0}</Text>
+
 
                 <Pressable style={styles.botonLike} onPress={() => props.data.likes && props.data.likes.includes(auth.currentUser.email) ? sacarLike() : darLike()}>
-                    <Text>Me gusta</Text>
+                    {props.data.likes && props.data.likes.includes(auth.currentUser.email) ? <Text>Quitar me gusta</Text> : <Text>Me gusta</Text>}
+                </Pressable>
+
+                <Pressable style={styles.botonLike} onPress={() => props.navigation.navigate("Stack", {screen: "Comment"})}>
+                    <Text>Comentar</Text>
                 </Pressable>
             </View>
 

@@ -1,6 +1,6 @@
 import { View, Text, Pressable, TextInput, StyleSheet } from "react-native";
-import { useState } from "react";
-import { auth } from "../../firebase/config";
+import { useState, useEffect } from "react";
+import { auth, db } from "../../firebase/config";
 
 const styles = StyleSheet.create({
     container: {
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         marginTop: 8,
         alignItems: 'center'
     },
-    error:{
+    error: {
         fontSize: 14,
         fontWeight: 700,
         color: "#e71919ff",
@@ -74,27 +74,45 @@ function Register(props) {
     const [registerError, setRegisterError] = useState("");
 
     function register(email, pass) {
-      auth.createUserWithEmailAndPassword(email, pass)
-        .then(response => {
-          setRegister(true);
-          props.navigation.navigate('Login');
-        })
-        .catch(error => {
-          setRegisterError('Fallo en el registro.')
-        })
+        auth.createUserWithEmailAndPassword(email, pass)
+            .then(response => {
+                setRegister(true);
+                props.navigation.navigate('Login');
+                db.collection('users').add({
+                    email: email,
+                    userName: usuario,
+                    createdAt: Date.now(),
+                })
+
+            })
+            .catch(error => {
+                setRegisterError('Fallo en el registro.')
+            })
     }
 
-    function onSubmit() {
-      if (!email.includes('@')) {
-        setRegisterError('Email mal formateado');
-        return;
-      }
-      if (password.length < 6) {
-        setRegisterError('La contraseña debe tener al menos 6 caracteres.');
-        return;
-      }
+    useEffect(
+        () => {
+            auth.onAuthStateChanged(
+                user => {
+                    if (user) {
+                        props.navigation.navigate('HomeMenu');
+                    }
+                }
+            )
+        }, []
+    )
 
-      register(email, password);
+    function onSubmit() {
+        if (!email.includes('@')) {
+            setRegisterError('Email mal formateado');
+            return;
+        }
+        if (password.length < 6) {
+            setRegisterError('La contraseña debe tener al menos 6 caracteres.');
+            return;
+        }
+
+        register(email, password);
     }
 
     return (
@@ -136,7 +154,7 @@ function Register(props) {
                 value={confirmPassword}
                 onChangeText={(text) => setConfirmPassword(text)}
             />
-            <Text style = {styles.error}>{registerError}</Text>
+            <Text style={styles.error}>{registerError}</Text>
             <Text>{registerError}</Text>
             <Pressable style={styles.submit} onPress={() => onSubmit()}>
                 <Text style={styles.textoSubmit}>Registrarme</Text>
