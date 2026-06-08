@@ -74,7 +74,15 @@ const styles = StyleSheet.create({
 
 function Login(props) {
 
-  useEffect(()=>{auth.onAuthStateChanged(user=>console.log(user))},[])
+  useEffect(
+    ()=>{auth.onAuthStateChanged(
+      user=> {
+        if(user){
+          props.navigation.navigate("HomeMenu")
+        }
+      }
+    )
+   } ,[])
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [logueado, setLogin] = useState(false);
