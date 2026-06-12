@@ -27,7 +27,7 @@ function Comment(props) {
     function onSubmit() {
 
         db.collection("posts").doc(props.route.paramps.id).update({
-            comentaarios: firebase.firestore.fieldValue.arrayUnion({
+            comentarios: firebase.firestore.FieldValue.arrayUnion({
                 email: auth.currentUser.email,
                 texto: comentario
             })

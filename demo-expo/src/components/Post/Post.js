@@ -75,7 +75,7 @@ function Post(props) {
                     {props.data.likes && props.data.likes.includes(auth.currentUser.email) ? <Text>Quitar me gusta</Text> : <Text>Me gusta</Text>}
                 </Pressable>
 
-                <Pressable style={styles.botonLike} onPress={() => props.navigation.navigate("Comment", { id: props.id })}>
+                <Pressable style={styles.botonLike} onPress={() => props.navigation.navigate('Stack', { screen: 'Comment', params: { id: id } })}>  
                     <Text>Comentar</Text>
                 </Pressable>
             </View>
