@@ -1,21 +1,27 @@
 import React from "react";
-import { Text, View, Pressable, FlatList} from "react-native";
+import { Text, View, Pressable, FlatList } from "react-native";
 import { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { auth, db } from "../../firebase/config";
 import Post from "../../components/Post/Post";
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0A0A0F',
-    paddingHorizontal: 24,
-    justifyContent: 'center',
-  }})
-function Home(props){
-  const [posteos, setPosteos] = useState([])
-  useEffect(() => {
-        
+    container: {
+        flex: 1,
+        backgroundColor: '#0A0A0F',
+        paddingHorizontal: 24,
+        justifyContent: 'center',
+    }, subtitulo: {
+        fontSize: 30,
+        color: '#8B8BA0',
+        textAlign: 'center',
+        marginBottom: 48,
+    }
+})
+function Home(props) {
+    const [posteos, setPosteos] = useState([])
+    useEffect(() => {
+
         if (!auth.currentUser) {
             props.navigation.navigate('Login')
             return
@@ -31,9 +37,14 @@ function Home(props){
 
         return () => posts()
     }, [])
-    return(
-    <View style={styles.container}>
-          {posteos.length === 0 ? (
+    return (
+        <View style={styles.container}>
+
+            <Text style={styles.subtitulo}>
+                Home
+            </Text>
+
+            {posteos.length === 0 ? (
                 <Text style={styles.emptyText}>No hay posteos aún.</Text>
             ) : (
                 <FlatList
