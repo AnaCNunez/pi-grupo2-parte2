@@ -11,7 +11,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#0A0A0F',
     paddingHorizontal: 24,
     justifyContent: 'center',
-  }})
+  },
+  logo:{
+    fontSize: 48,
+    fontWeight: '700',
+    color: '#7C3AED',
+    textAlign: 'center',
+    paddingTop:25,
+    paddingBottom:25,
+    borderBottomWidth: 2,
+    borderBottomColor: '#2A2A3D',
+    marginBottom:16
+
+  }
+})
 function Home(props){
   const [posteos, setPosteos] = useState([])
   useEffect(() => {
@@ -20,19 +33,23 @@ function Home(props){
             props.navigation.navigate('Login')
             return
         }
-        const posts = db.collection('posts')
-            .orderBy('createdAt', 'desc')
-            .onSnapshot(snapshot => {
-                setPosteos(snapshot.docs.map(doc => ({
-                    id: doc.id,
-                    ...doc.data()
-                })))
+        const posts = db.collection('posts').orderBy('createdAt', 'desc').onSnapshot(
+                docs => {
+                let posts = [];
+                  docs.forEach(doc=>{
+                      posts.push({
+                      id: doc.id,
+                      data: doc.data()
+                  })
+                  setPosteos(posts)
+                })
             })
 
-        return () => posts()
+  
     }, [])
     return(
-    <View style={styles.container}>
+    <View style={styles.container}> 
+      <Text style={styles.logo}>Crate</Text>
           {posteos.length === 0 ? (
                 <Text style={styles.emptyText}>No hay posteos aún.</Text>
             ) : (
@@ -42,7 +59,7 @@ function Home(props){
                     renderItem={({ item }) => (
                         <Post
                             id={item.id}
-                            data={item}
+                            data={item.data}
                             navigation={props.navigation}
                         />
                     )}

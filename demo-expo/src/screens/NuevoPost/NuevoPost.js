@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { Text, View, Pressable, TextInput } from "react-native";
 import { db, auth } from "../../firebase/config";
 import { StyleSheet } from "react-native";
@@ -38,11 +38,24 @@ const styles = StyleSheet.create({
     color: '#F0EEFF',
     fontSize: 16,
     fontWeight: '700'
+  },
+  logo: {
+    fontSize: 48,
+    fontWeight: '700',
+    color: '#7C3AED',
+    textAlign: 'center',
+  },
+  error:{
+    color: "white",
+    fontSize: 15,
+    fontWeight: '700',
+    textAlign: "center"
   }
 })
 
 function NuevoPost(props) {
   const [descripcionPost, setDescripcionPost] = useState("");
+  const [error, setError] = useState("")
 
   function crearPost() {
 
@@ -51,6 +64,7 @@ function NuevoPost(props) {
       email: auth.currentUser.email,
       likes: [],
       createdAt: Date.now()
+      
     })
       .then(() => {
         setDescripcionPost("");
@@ -62,19 +76,23 @@ function NuevoPost(props) {
 
   return (
     <View style={styles.container}>
+      
+      <Text style={styles.logo}>Crate</Text>
+    
       <Text style={styles.subtitulo}> Nuevo Post </Text>
 
       <TextInput
-        placeholder="Escribí tu post"
+        placeholder="¿Qué estás pensando?"
         value={descripcionPost}
         onChangeText={text => setDescripcionPost(text)}
         style={styles.input}
       />
 
-      <Pressable onPress={()=>crearPost()} style={styles.submit}>
+      <Pressable onPress={()=> {descripcionPost.length == 0? setError("Ups! Parece que no hay nada que publicar.") : crearPost()}} style={styles.submit}>
         <Text style={styles.textoSubmit}>Publicar</Text>
       </Pressable>
 
+  <Text style={styles.error}>{error}</Text>
     </View>
   )
 }

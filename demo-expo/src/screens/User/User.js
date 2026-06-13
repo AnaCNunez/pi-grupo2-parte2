@@ -87,18 +87,12 @@ function User(props) {
         });
 
         setPosteos(posts);
-        setLoading(false);
-
-
+        setLoading(false)
       });
 
-      db.collection("users")
-  .where("email", "==", auth.currentUser.email)
-  .get()
-  .then(docs => {
+      db.collection("users").where("email", "==", auth.currentUser.email).get().then(docs => {
     console.log("cantidad de docs:", docs.size);
-
-    docs.forEach(doc => {
+      docs.forEach(doc => {
       console.log(doc.data());
       setUserName(doc.data().userName);
     });

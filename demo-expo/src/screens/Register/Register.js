@@ -47,16 +47,20 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '700'
     },
-    textoLogin: {
-        color: '#FFF',
+    texto2: {
+        color: '#9D5FF5',
         fontSize: 16,
-        fontWeight: '700',
-        textAlign: 'center'
+        fontWeight: '500',
     },
-    botonLogin: {
-        marginTop: 8,
-        alignItems: 'center'
-    },
+    secondary: {
+        backgroundColor: '#13131A',
+        borderWidth: 1,
+        borderColor: '#2A2A3D',
+        borderRadius: 12,
+        paddingVertical: 14,
+        alignItems: 'center',
+        marginBottom: 12,
+  },
     error: {
         fontSize: 14,
         fontWeight: 700,
@@ -123,7 +127,7 @@ function Register(props) {
             <TextInput
                 style={styles.input}
                 placeholder="Nombre de usuario"
-                placeholderTextColor="#8B8BA0"
+                placeholderTextColor="#F0EEFF"
                 value={usuario}
                 onChangeText={(text) => setUsuario(text)}
             />
@@ -131,7 +135,7 @@ function Register(props) {
             <TextInput
                 style={styles.input}
                 placeholder="Email"
-                placeholderTextColor="#8B8BA0"
+                placeholderTextColor="#F0EEFF"
                 keyboardType="email-address"
                 value={email}
                 onChangeText={(text) => setEmail(text)}
@@ -140,7 +144,7 @@ function Register(props) {
             <TextInput
                 style={styles.input}
                 placeholder="Contraseña"
-                placeholderTextColor="#8B8BA0"
+                placeholderTextColor="#F0EEFF"
                 secureTextEntry={true}
                 value={password}
                 onChangeText={(text) => setPassword(text)}
@@ -149,7 +153,7 @@ function Register(props) {
             <TextInput
                 style={styles.input}
                 placeholder="Confirmar contraseña"
-                placeholderTextColor="#8B8BA0"
+                placeholderTextColor="#F0EEFF"
                 secureTextEntry={true}
                 value={confirmPassword}
                 onChangeText={(text) => setConfirmPassword(text)}
@@ -160,8 +164,8 @@ function Register(props) {
                 <Text style={styles.textoSubmit}>Registrarme</Text>
             </Pressable>
 
-            <Pressable style={styles.botonLogin} onPress={() => props.navigation.navigate('Login')}>
-                <Text style={styles.textoLogin}>Ya tengo cuenta</Text>
+            <Pressable style={styles.secondary} onPress={() => props.navigation.navigate('Login')}>
+                <Text style={styles.texto2}>Ya tengo cuenta</Text>
             </Pressable>
         </View>
     );
