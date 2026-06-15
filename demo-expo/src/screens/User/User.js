@@ -90,14 +90,14 @@ function User(props) {
         setLoading(false)
       });
 
-      db.collection("users").where("email", "==", auth.currentUser.email).get().then(docs => {
-    console.log("cantidad de docs:", docs.size);
+    db.collection("users").where("email", "==", auth.currentUser.email).get().then(docs => {
+      console.log("cantidad de docs:", docs.size);
       docs.forEach(doc => {
-      console.log(doc.data());
-      setUserName(doc.data().userName);
-    });
-  })
-    
+        console.log(doc.data());
+        setUserName(doc.data().userName);
+      });
+    })
+
   }, [])
 
 
@@ -119,21 +119,26 @@ function User(props) {
 
       <Text style={styles.tituloPosts}>Mis publicaciones</Text>
 
-      {posteos.length === 0 ?
-        (<Text style={styles.emptyText}>
-          Todavía no publicaste ningún post.
-        </Text>) :
-        (<FlatList
-          data={posteos}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) =>
-            <Post
-              id={item.id}
-              data={item.data}
-              navigation={props.navigation}
-            />
-          }
-        />)}
+      {loading ?
+        <Text style={styles.emptyText}>
+          Cargando publicaciones...
+        </Text>
+        :
+        posteos.length === 0 ?
+          (<Text style={styles.emptyText}>
+            Todavía no publicaste ningún post.
+          </Text>) :
+          (<FlatList
+            data={posteos}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) =>
+              <Post
+                id={item.id}
+                data={item.data}
+                navigation={props.navigation}
+              />
+            }
+          />)}
 
       <Pressable style={styles.botonLogout} onPress={() => LogOut()}>
         <Text style={styles.logout}>Desloguearse</Text>

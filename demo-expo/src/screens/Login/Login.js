@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
   },
-  error:{
+  error: {
     fontSize: 14,
     fontWeight: 700,
     color: "#e71919ff",
@@ -75,14 +75,15 @@ const styles = StyleSheet.create({
 function Login(props) {
 
   useEffect(
-    ()=>{auth.onAuthStateChanged(
-      user=> {
-        if(user){
-          props.navigation.navigate("HomeMenu")
+    () => {
+      auth.onAuthStateChanged(
+        user => {
+          if (user) {
+            props.navigation.navigate("HomeMenu")
+          }
         }
-      }
-    )
-   } ,[])
+      )
+    }, [])
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [logueado, setLogin] = useState(false);
@@ -95,9 +96,9 @@ function Login(props) {
         props.navigation.navigate('HomeMenu');
       })
       .catch(error => {
-        if (email == "" || password == ""){ setLoginError("Completá todos los campos.") ; return; }
-          if (password.length < 6) { setLoginError("La contraseña debe tener un mínimo de 6 caracteres."); return}
-          if (!email.includes("@")) {setLoginError("El email no es válido, por favor no olvides utilizar @."); return}
+        if (email == "" || password == "") { setLoginError("Completá todos los campos."); return; }
+        if (password.length < 6) { setLoginError("La contraseña debe tener un mínimo de 6 caracteres."); return }
+        if (!email.includes("@")) { setLoginError("El email no es válido, por favor no olvides utilizar @."); return }
         setLoginError('Fallo en el login.')
       })
   }
@@ -123,7 +124,7 @@ function Login(props) {
         value={password}
       />
 
-      <Text style = {styles.error}>{loginError}</Text>
+      <Text style={styles.error}>{loginError}</Text>
 
       <Pressable style={styles.submit} onPress={() => login()}>
         <Text style={styles.textoSubmit}>Entrar a la app</Text>
