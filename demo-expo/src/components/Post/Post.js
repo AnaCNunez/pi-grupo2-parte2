@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { db, auth } from "../../firebase/config";
 import firebase from "firebase";
+import Feather from '@expo/vector-icons/Feather';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const styles = StyleSheet.create({
     card: {
@@ -14,15 +16,15 @@ const styles = StyleSheet.create({
     },
     email: {
         color: "#9D5FF5",
-        fontSize: 14,
+        fontSize: 17,
         fontWeight: "600",
         marginBottom: 8,
     },
     descripcion: {
         color: "#F0EEFF",
-        fontSize: 16,
-        lineHeight: 22,
-        marginBottom: 16,
+        fontSize: 15,
+        marginBottom: 20,
+        marginTop: 13,
     },
     seccionLike: {
         flexDirection: "row",
@@ -36,8 +38,8 @@ const styles = StyleSheet.create({
     },
     botonLike: {
         backgroundColor: "#7C3AED",
-        paddingVertical: 8,
-        paddingHorizontal: 14,
+        paddingVertical: 6,
+        paddingHorizontal: 6,
         borderRadius: 10,
     },
     textoLike: {
@@ -47,7 +49,6 @@ const styles = StyleSheet.create({
 });
 
 function Post(props) {
-
     function darLike() {
         db.collection("posts").doc(props.id).update({
             likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)
@@ -59,21 +60,21 @@ function Post(props) {
         db.collection("posts").doc(props.id).update({
             likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
         })
-            .then(() => console.log("like eliminado"))
+            .then(() => console.log("Like eliminado"))
     }
 
     return (
         <View style={styles.card}>
             <Text style={styles.email}>{props.data.email}</Text>
             <Text style={styles.descripcion}>{props.data.descripcionPost}</Text>
-            <Text style={styles.likes}>🤍{props.data.likes ? props.data.likes.length : 0}</Text>
 
             <View style={styles.seccionLike}>
 
 
                 <Pressable style={styles.botonLike} onPress={() => props.data.likes && props.data.likes.includes(auth.currentUser.email) ? sacarLike() : darLike()}>
-                    {props.data.likes && props.data.likes.includes(auth.currentUser.email) ? <Text>Quitar me gusta</Text> : <Text>Me gusta</Text>}
+                    {props.data.likes && props.data.likes.includes(auth.currentUser.email) ? <Ionicons name="heart-dislike-outline" size={17} color="white" /> : <Ionicons name="heart-outline" size={17} color="white" />}
                 </Pressable>
+                <Text style={styles.likes}> {props.data.likes && props.data.likes.length > 0?`Likeado por ${props.data.likes.length} usuarios`: ""} </Text>
 
                 <Pressable style={styles.botonLike} onPress={() => props.navigation.navigate('Stack', { screen: 'Comments', params: { id: props.id } })}>  
                     <Text>Comentar</Text>
