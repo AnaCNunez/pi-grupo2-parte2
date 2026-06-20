@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Text, View, Pressable, TextInput } from "react-native";
 import { db, auth } from "../../firebase/config";
 import { StyleSheet } from "react-native";
+import { useEffect } from "react";
 
 const styles = StyleSheet.create({
   container: {
@@ -55,20 +56,33 @@ const styles = StyleSheet.create({
 
 function NuevoPost(props) {
   const [descripcionPost, setDescripcionPost] = useState("");
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
+  const [usuario, setUsuario] = useState("");
+  
+  useEffect(() => {
+        db.collection("users").where("email", "==", auth.currentUser.email).get().then(docs => {
+          console.log("cantidad de docs:", docs.size);
+          docs.forEach(doc => {
+            console.log(doc.data());
+            setUsuario(doc.data().userName);
+          });
+        })
+
+  }, [])
 
   function crearPost() {
-
     db.collection("posts").add({
       descripcionPost: descripcionPost,
       email: auth.currentUser.email,
       likes: [],
-      createdAt: Date.now()
+      createdAt: Date.now(),
+      user: usuario
       
     })
+
       .then(() => {
         setDescripcionPost("");
-        props.navigation.navigate("StackMenu")
+        props.navigation.navigate("Home")
         console.log("Post creado");
       })
       .catch(error => console.log(error));

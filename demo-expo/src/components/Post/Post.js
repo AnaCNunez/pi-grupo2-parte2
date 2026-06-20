@@ -14,11 +14,10 @@ const styles = StyleSheet.create({
         padding: 16,
         marginBottom: 16,
     },
-    email: {
+    user: {
         color: "#9D5FF5",
         fontSize: 17,
         fontWeight: "600",
-        marginBottom: 8,
     },
     descripcion: {
         color: "#F0EEFF",
@@ -65,7 +64,7 @@ function Post(props) {
 
     return (
         <View style={styles.card}>
-            <Text style={styles.email}>{props.data.email}</Text>
+            <Text style={styles.user}>{props.data.user}</Text>
             <Text style={styles.descripcion}>{props.data.descripcionPost}</Text>
 
             <View style={styles.seccionLike}>
