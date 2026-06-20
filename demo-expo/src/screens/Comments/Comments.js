@@ -28,9 +28,7 @@ function Comments(props) {
             return;
         }
 
-        db.collection("posts")
-            .doc(props.route.params.id)
-            .update({
+        db.collection("posts").doc(props.route.params.id).update({
                 comentarios: firebase.firestore.FieldValue.arrayUnion({
                     owner: auth.currentUser.email,
                     texto: comentario,
@@ -38,9 +36,7 @@ function Comments(props) {
             })
             .then(() => {
                 setComentario("");
-                db.collection('posts')
-                    .get()
-                    .then(docs => {
+                db.collection('posts').get().then(docs => {
                         docs.forEach(doc => {
                             if (doc.id === props.route.params.id) {
                                 setComentarios(doc.data().comentarios ? doc.data().comentarios : []);
@@ -89,7 +85,7 @@ function Comments(props) {
                         />
             }
 
-            <Pressable onPress={() => props.navigation.goBack()} style={styles.botonSecundario}>
+            <Pressable onPress={() => props.navigation.navigate('Home')} style={styles.botonSecundario}>
                 <Text style={styles.textoBoton}>Volver</Text>
             </Pressable>
         </View>

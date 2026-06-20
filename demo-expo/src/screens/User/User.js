@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Pressable, FlatList } from "react-native";
+import { ActivityIndicator } from "react-native";
 import { db, auth } from "../../firebase/config";
 import { StyleSheet } from "react-native";
 import firebase from "firebase";
 
 import Post from "../../components/Post/Post";
+
 
 
 const styles = StyleSheet.create({
@@ -120,9 +122,12 @@ function User(props) {
       <Text style={styles.tituloPosts}>Mis publicaciones</Text>
 
       {loading ?
+      <View>
         <Text style={styles.emptyText}>
           Cargando publicaciones...
         </Text>
+        <ActivityIndicator></ActivityIndicator>
+      </View>
         :
         posteos.length === 0 ?
           (<Text style={styles.emptyText}>

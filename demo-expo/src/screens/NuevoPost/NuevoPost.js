@@ -80,6 +80,7 @@ function NuevoPost(props) {
       <Text style={styles.logo}>Crate</Text>
     
       <Text style={styles.subtitulo}> Nuevo Post </Text>
+      
 
       <TextInput
         placeholder="¿Qué estás pensando?"
