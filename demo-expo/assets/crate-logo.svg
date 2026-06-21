@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 296 110" width="296" height="110" role="img" aria-label="Crate logo">
+  <defs>
+    <linearGradient id="vio" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#B388FF"/>
+    </linearGradient>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&amp;display=swap');</style>
+  </defs>
+
+  <rect x="0" y="0" width="296" height="110" rx="16" fill="#0A0A0F"/>
+
+  <text x="26" y="71" font-family="'Space Grotesk','Montserrat','Helvetica Neue',Arial,sans-serif" font-size="56" font-weight="700" letter-spacing="-1.5" fill="url(#vio)">Crate</text>
+
+  <rect x="206" y="17" width="76" height="76" rx="18" fill="url(#vio)"/>
+  <circle cx="224" cy="55" r="5" fill="#0A0A0F"/>
+  <circle cx="264" cy="55" r="5" fill="#0A0A0F"/>
+  <rect x="230" y="47.5" width="4" height="15" rx="2" fill="#0A0A0F"/>
+  <rect x="237" y="41" width="4" height="28" rx="2" fill="#0A0A0F"/>
+  <rect x="244" y="45" width="4" height="20" rx="2" fill="#0A0A0F"/>
+  <rect x="251" y="39" width="4" height="32" rx="2" fill="#0A0A0F"/>
+  <rect x="258" y="46.5" width="4" height="17" rx="2" fill="#0A0A0F"/>
+</svg>

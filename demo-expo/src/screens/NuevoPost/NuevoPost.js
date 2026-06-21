@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, Pressable, TextInput } from "react-native";
+import { Text, View, Pressable, TextInput, Image } from "react-native";
 import { db, auth } from "../../firebase/config";
 import { StyleSheet } from "react-native";
 import { useEffect } from "react";
@@ -12,10 +12,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   subtitulo: {
-    fontSize: 30,
+    fontSize: 20,
     color: '#8B8BA0',
     textAlign: 'center',
-    marginBottom: 48,
+    marginBottom: 30,
   },
   input: {
     backgroundColor: '#13131A',
@@ -51,7 +51,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '700',
     textAlign: "center"
-  }
+  },
+    image:{
+        height:70,
+        alignSelf:"center",
+        width:200,
+        marginTop: 10,
+    }
 })
 
 function NuevoPost(props) {
@@ -91,7 +97,7 @@ function NuevoPost(props) {
   return (
     <View style={styles.container}>
       
-      <Text style={styles.logo}>Crate</Text>
+       <Image source={require("../../../assets/crate-logo.svg")} resizeMode="contain" style={styles.image}/>
     
       <Text style={styles.subtitulo}> Nuevo Post </Text>
       

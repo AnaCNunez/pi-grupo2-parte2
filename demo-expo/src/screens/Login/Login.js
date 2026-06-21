@@ -1,4 +1,4 @@
-import { View, Text, Pressable, TextInput } from "react-native";
+import { View, Text, Pressable, TextInput, Image } from "react-native";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { auth } from "../../firebase/config";
@@ -67,7 +67,13 @@ const styles = StyleSheet.create({
     color: "#e71919ff",
     textAlign: "center",
     marginBottom: 20
-  }
+  },
+    image:{
+        height:100,
+        alignSelf:"center",
+        width:300,
+        marginTop: 10,
+    }
 });
 
 
@@ -105,7 +111,7 @@ function Login(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.logo}>Crate</Text>
+      <Image source={require("../../../assets/crate-logo.svg")} resizeMode="contain" style={styles.image}/>
       <Text style={styles.subtitulo}>Bienvenido de nuevo</Text>
 
       <TextInput

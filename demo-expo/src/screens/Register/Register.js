@@ -1,4 +1,4 @@
-import { View, Text, Pressable, TextInput, StyleSheet } from "react-native";
+import { View, Text, Pressable, TextInput, StyleSheet, Image } from "react-native";
 import { useState, useEffect } from "react";
 import { auth, db } from "../../firebase/config";
 
@@ -66,6 +66,12 @@ const styles = StyleSheet.create({
         fontWeight: 700,
         color: "#e71919ff",
         textAlign: "center"
+    },
+    image:{
+        height:100,
+        alignSelf:"center",
+        width:300,
+        marginTop: 10,
     }
 });
 
@@ -121,7 +127,7 @@ function Register(props) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.logo}>CRATE</Text>
+            <Image source={require("../../../assets/crate-logo.svg")} resizeMode="contain" style={styles.image}/>
             <Text style={styles.subtitulo}>Creá tu cuenta</Text>
 
             <TextInput

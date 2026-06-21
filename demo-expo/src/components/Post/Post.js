@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     likes: {
-        color: "#BDBDCC",
+        color: "#F0EEFF",
         fontSize: 15,
         fontWeight: "500",
     },
@@ -39,11 +39,18 @@ const styles = StyleSheet.create({
         backgroundColor: "#7C3AED",
         paddingVertical: 6,
         paddingHorizontal: 6,
-        borderRadius: 10,
+        borderRadius: 10
     },
     textoLike: {
         color: "#F0EEFF",
         fontWeight: "700",
+    },
+    comentario:{
+        color: "#F0EEFF",
+    },
+    corazon:{
+        flexDirection:"row",
+        alignItems:"center"
     }
 });
 
@@ -71,14 +78,15 @@ function Post(props) {
 
 
                 <Pressable style={styles.botonLike} onPress={() => props.data.likes && props.data.likes.includes(auth.currentUser.email) ? sacarLike() : darLike()}>
-                    {props.data.likes && props.data.likes.includes(auth.currentUser.email) ? <Ionicons name="heart-dislike-outline" size={17} color="white" /> : <Ionicons name="heart-outline" size={17} color="white" />}
+                    {props.data.likes && props.data.likes.includes(auth.currentUser.email) ? <View style={styles.corazon}><Ionicons name="heart-dislike-outline" size={17} color="white"/><Text style={styles.likes}>{props.data.likes && props.data.likes.length > 0?` x ${props.data.likes.length}`: ""} </Text></View> : <Ionicons name="heart-outline" size={17} color="white"/> }
                 </Pressable>
-                <Text style={styles.likes}> {props.data.likes && props.data.likes.length > 0?`Likeado por ${props.data.likes.length} usuarios`: ""} </Text>
+
 
                 <Pressable style={styles.botonLike} onPress={() => props.navigation.navigate('Stack', { screen: 'Comments', params: { id: props.id } })}>  
-                    <Text>Comentar</Text>
+                    <Text style={styles.comentario}>Comentar</Text>
                 </Pressable>
             </View>
+            
 
         </View>
     )
