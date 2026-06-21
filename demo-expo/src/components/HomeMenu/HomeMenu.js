@@ -15,26 +15,26 @@ const styles = StyleSheet.create({
 })
 function HomeMenu(props){
     return(
-        <Tab.Navigator   screenOptions={{tabBarShowLabel:false,
+        <Tab.Navigator screenOptions={{tabBarShowLabel:false,
             tabBarStyle: {
             backgroundColor: '#13131A', 
             borderTopColor: '#2A2A3D',   
             borderTopWidth: 1,
-            height: 64,
-    }
-        }}>
-            <Tab.Screen style = {styles.tab} name='Stack' component={StackMenu} options={
+            height: 64},
+            tabBarActiveTintColor: '#7C3AED'
+            }}>
+            <Tab.Screen name='Stack' component={StackMenu} options={
                 {    headerShown:false,
                      tabBarIcon: ()=> <Feather  name="home" size={24} color="#F0EEFF" style={styles.tab} />
                 }
                 }/>
-            <Tab.Screen style = {styles.tab} name='NuevoPost' component={NuevoPost} options={
+            <Tab.Screen name='NuevoPost' component={NuevoPost} options={
                 {    headerShown:false,
                      tabBarIcon: ()=> <Logo/>
 
                 }
                 }/>
-            <Tab.Screen style = {styles.tab} name='Profile' component={User}options={
+            <Tab.Screen name='Profile' component={User}options={
                 {   headerShown:false,
                     tabBarIcon: ()=> <Feather name="user" size={24} color="#F0EEFF" style={styles.tab} />
                 }

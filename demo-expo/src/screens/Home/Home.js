@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, Pressable, FlatList, Image } from "react-native";
+import { Text, View, Pressable, FlatList, Image, ActivityIndicator } from "react-native";
 import { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { auth, db } from "../../firebase/config";
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#0A0A0F',
-        paddingHorizontal: 24,
+        paddingHorizontal: 5,
         justifyContent: 'center',
     }, subtitulo: {
         fontSize: 30,
@@ -65,13 +65,15 @@ function Home(props) {
     }, [])
     return (
         <View style={styles.container}>
-            <Image source={require("../../../assets/crate-logo.svg")} resizeMode="contain" style={styles.image}/>
-
-            <View style={styles.div}></View>
-            
             {posteos.length === 0 ? (
-                <Text style={styles.emptyText}>No hay posteos aún.</Text>
+                <View>
+                <Image source={require("../../../assets/crate-logo.svg")} resizeMode="contain" style={styles.image}/>
+                <ActivityIndicator color={'#7C3AED'} size={48} marginTop={30}/>
+                </View>
             ) : (
+                <View style={styles.container}>
+                <Image source={require("../../../assets/crate-logo.svg")} resizeMode="contain" style={styles.image}/>
+                <View style={styles.div}></View>
                 <FlatList
                     data={posteos}
                     keyExtractor={item => item.id}
@@ -83,6 +85,7 @@ function Home(props) {
                         />
                     )}
                 />
+                </View>
             )}
         </View>
 
