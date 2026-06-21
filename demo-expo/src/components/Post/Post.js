@@ -78,7 +78,7 @@ function Post(props) {
 
 
                 <Pressable style={styles.botonLike} onPress={() => props.data.likes && props.data.likes.includes(auth.currentUser.email) ? sacarLike() : darLike()}>
-                    {props.data.likes && props.data.likes.includes(auth.currentUser.email) ? <View style={styles.corazon}><Ionicons name="heart-dislike-outline" size={17} color="white"/><Text style={styles.likes}>{props.data.likes && props.data.likes.length > 0?` x ${props.data.likes.length}`: ""} </Text></View> : <Ionicons name="heart-outline" size={17} color="white"/> }
+                       {props.data.likes && props.data.likes.includes(auth.currentUser.email) ? <View style={styles.corazon}><Ionicons name="heart-dislike-outline" size={17} color="white"/><Text style={styles.likes}>{props.data.likes && props.data.likes.length > 0?` x ${props.data.likes.length}`: ""} </Text></View> : <View style={styles.corazon}><Ionicons name="heart-outline" size={17} color="white"/> <Text style={styles.likes}> {props.data.likes && props.data.likes.length > 0?` x ${props.data.likes.length}`: ""}</Text></View> }
                 </Pressable>
 
 
