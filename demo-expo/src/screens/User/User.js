@@ -92,13 +92,15 @@ function User(props) {
         setLoading(false)
       });
 
-    db.collection("users").where("email", "==", auth.currentUser.email).get().then(docs => {
-      console.log("cantidad de docs:", docs.size);
-      docs.forEach(doc => {
-        console.log(doc.data());
-        setUserName(doc.data().userName);
+    db.collection("users")
+      .where("email", "==", auth.currentUser.email)
+      .onSnapshot(docs => {
+
+        docs.forEach(doc => {
+          setUserName(doc.data().userName);
+        });
+
       });
-    })
 
   }, [])
 
@@ -122,12 +124,12 @@ function User(props) {
       <Text style={styles.tituloPosts}>Mis publicaciones</Text>
 
       {loading ?
-      <View>
-        <Text style={styles.emptyText}>
-          Cargando publicaciones...
-        </Text>
-        <ActivityIndicator></ActivityIndicator>
-      </View>
+        <View>
+          <Text style={styles.emptyText}>
+            Cargando publicaciones...
+          </Text>
+          <ActivityIndicator/>
+        </View>
         :
         posteos.length === 0 ?
           (<Text style={styles.emptyText}>

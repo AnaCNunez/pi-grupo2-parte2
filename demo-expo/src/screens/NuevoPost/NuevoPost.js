@@ -46,49 +46,50 @@ const styles = StyleSheet.create({
     color: '#7C3AED',
     textAlign: 'center',
   },
-  error:{
+  error: {
     color: "white",
     fontSize: 15,
     fontWeight: '700',
     textAlign: "center"
   },
-    image:{
-        height:70,
-        alignSelf:"center",
-        width:200,
-        marginTop: 10,
-    }
+  image: {
+    height: 70,
+    alignSelf: "center",
+    width: 200,
+    marginTop: 10,
+  }
 })
 
 function NuevoPost(props) {
   const [descripcionPost, setDescripcionPost] = useState("");
   const [error, setError] = useState("");
   const [usuario, setUsuario] = useState("");
-  
+
   useEffect(() => {
-        db.collection("users").where("email", "==", auth.currentUser.email).get().then(docs => {
-          console.log("cantidad de docs:", docs.size);
-          docs.forEach(doc => {
-            console.log(doc.data());
-            setUsuario(doc.data().userName);
-          });
-        })
+    db.collection("users")
+      .where("email", "==", auth.currentUser.email)
+      .onSnapshot(docs => {
+        docs.forEach(doc => {
+          setUsuario(doc.data().userName);
+        });
+      });
 
   }, [])
 
   function crearPost() {
+    setError("")
     db.collection("posts").add({
       descripcionPost: descripcionPost,
       email: auth.currentUser.email,
       likes: [],
       createdAt: Date.now(),
       user: usuario
-      
+
     })
 
       .then(() => {
         setDescripcionPost("");
-        props.navigation.navigate("Home")
+        props.navigation.navigate("Stack", {screen: "Home"})
         console.log("Post creado");
       })
       .catch(error => console.log(error));
@@ -96,11 +97,11 @@ function NuevoPost(props) {
 
   return (
     <View style={styles.container}>
-      
-       <Image source={require("../../../assets/crate-logo.svg")} resizeMode="contain" style={styles.image}/>
-    
+
+      <Image source={require("../../../assets/crate-logo.svg")} resizeMode="contain" style={styles.image} />
+
       <Text style={styles.subtitulo}> Nuevo Post </Text>
-      
+
 
       <TextInput
         placeholder="¿Qué estás pensando?"
@@ -109,11 +110,11 @@ function NuevoPost(props) {
         style={styles.input}
       />
 
-      <Pressable onPress={()=> {descripcionPost.length == 0? setError("Ups! Parece que no hay nada que publicar.") : crearPost()}} style={styles.submit}>
+      <Pressable onPress={() => { descripcionPost.length == 0 ? setError("Ups! Parece que no hay nada que publicar.") : crearPost() }} style={styles.submit}>
         <Text style={styles.textoSubmit}>Publicar</Text>
       </Pressable>
 
-  <Text style={styles.error}>{error}</Text>
+      <Text style={styles.error}>{error}</Text>
     </View>
   )
 }

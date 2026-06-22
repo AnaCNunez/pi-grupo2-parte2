@@ -10,17 +10,12 @@ function Comments(props) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        db.collection('posts')
-            .get()
-            .then(docs => {
-                docs.forEach(doc => {
-                    if (doc.id === props.route.params.id) {
-                        setComentarios(doc.data().comentarios ? doc.data().comentarios : []);
-                        setLoading(false);
-                    }
-                })
+        db.collection("posts")
+            .doc(props.route.params.id)
+            .onSnapshot(doc => {
+                setComentarios(doc.data().comentarios || []);
+                setLoading(false);
             })
-            .catch(error => console.log(error))
     }, [])
 
     function enviarComentario() {
@@ -29,21 +24,14 @@ function Comments(props) {
         }
 
         db.collection("posts").doc(props.route.params.id).update({
-                comentarios: firebase.firestore.FieldValue.arrayUnion({
-                    owner: auth.currentUser.email,
-                    texto: comentario,
-                })
+            comentarios: firebase.firestore.FieldValue.arrayUnion({
+                owner: auth.currentUser.email,
+                texto: comentario,
             })
+        })
             .then(() => {
                 setComentario("");
-                db.collection('posts').get().then(docs => {
-                        docs.forEach(doc => {
-                            if (doc.id === props.route.params.id) {
-                                setComentarios(doc.data().comentarios ? doc.data().comentarios : []);
-                            }
-                        })
-                    })
-                    .catch(error => console.log(error))
+                
             })
             .catch(error => console.log(error))
     }
